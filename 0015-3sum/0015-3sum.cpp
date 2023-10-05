@@ -1,49 +1,41 @@
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
-        vector<vector<int>> ans;
-        sort(nums.begin(),nums.end());
-        int n=nums.size();
-        for(int i=0;i<n; i++)
-        {
-            int j=i+1,k=n-1;
-            while(j<n && j<k)
-            {
-                if(nums[j]+nums[k] == -nums[i])
-                {
-                    ans.push_back({nums[i],nums[j],nums[k]});
-                    while(k!=0 && nums[k]==nums[k-1]) k--;
-                    while(j!=n-1 && nums[j]==nums[j+1]) j++;
-                    j++,k--;
-                }
-                else if(nums[j]+nums[k] > -nums[i]) 
-                {
-                    while(k!=0 && nums[k]==nums[k-1]) k--;
-                    k--;
-                }
-                else
-                {
-                    while(j!=n-1 && nums[j]==nums[j+1]) j++;
-                    j++;
-                }
-            }
-            while(i!=n-1 && nums[i]==nums[i+1]) i++;
-        }
-        for(auto triplet : ans)
-            sort(triplet.begin(),triplet.end());
-        return ans;
-}
-void display_ans(vector<vector<int>> temp)
-{
-    for(auto triplet : temp) 
-        cout<<triplet[0]<<" "<<triplet[1]<<" "<<triplet[2]<<"\n";
-}
-int main()
-{
-    vector<int> v{-1,0,1,2,-1,-4};
-    display_ans(threeSum(v));
-    return 0;
-}
+    vector<vector<int>> result;
+    int n = nums.size();
+    // -1,0,1,2,-1,-4
+    if (n < 3) {
+        return result; // Not enough elements to form a triplet
+    }
+    // -4 -1 -1 0 1 2
+    sort(nums.begin(), nums.end());
+
+    for (int i = 0; i < n - 2; ++i) {
         
-    
+        if (i > 0 && nums[i] == nums[i - 1]) {
+            continue; // Skip duplicate values
+        }
+            // -4 -1 -1 0 1 2 
+        int left = i + 1; // l=-1
+        int right = n - 1; // r= 2
+
+        while (left < right) {
+            int sum = nums[i] + nums[left] + nums[right];
+
+            if (sum == 0) {
+                result.push_back({nums[i], nums[left], nums[right]});
+                while (left < right && nums[left] == nums[left + 1]) left++;
+                while (left < right && nums[right] == nums[right - 1]) right--;
+                left++;
+                right--;
+            } else if (sum < 0) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+    }
+
+    return result;
+}
 };
