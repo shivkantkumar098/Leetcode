@@ -1,4 +1,3 @@
-//https://leetcode.com/problems/maximal-rectangle/
 class Solution {
 public:
 int largestRectangleArea(vector<int>& heights) {
