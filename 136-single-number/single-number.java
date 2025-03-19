@@ -2,12 +2,13 @@ import java.util.*;
 class Solution {
     public int singleNumber(int[] nums) {
         HashMap<Integer,Integer>mp=new HashMap<>();
-        for(int i:nums){
-            mp.put(i,mp.getOrDefault(i,0)+1);
+        int n=nums.length;
+        for(int i=0;i<n;i++){
+            mp.put(nums[i],mp.getOrDefault(nums[i],0)+1);
         }
-        for(int i:mp.keySet()){
-            if(mp.get(i)==1){
-                return i;
+        for(int key:mp.keySet()){
+            if(mp.get(key)==1){
+                return key;
             }
         }
         return -1;
