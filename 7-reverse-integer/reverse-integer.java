@@ -4,6 +4,7 @@ class Solution {
     while(x!=0){
         int digit=x%10;
         x/=10;
+        // if not then 1036 tc will failed
         if(rev>Integer.MAX_VALUE/10 || rev<Integer.MIN_VALUE/10){
             return 0;
         }
