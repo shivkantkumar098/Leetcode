@@ -1,13 +1,18 @@
 class Solution {
     public int removeDuplicates(int[] nums) {
-        
-        int n =nums.length;
-        int k=1;
-        for(int i=1;i<n;i++){
-            if(nums[i]!=nums[i-1]){
-                nums[k++]=nums[i];   
+        int n = nums.length;
+        boolean[] seen = new boolean[10001]; // to cover values from -5000 to +5000
+        int offset = 5000;
+        int k = 0;
+
+        for (int i = 0; i < n; i++) {
+            int shiftedVal = nums[i] + offset;
+            if (!seen[shiftedVal]) {
+                seen[shiftedVal] = true;
+                nums[k++] = nums[i];
             }
         }
+
         return k;
     }
 }
