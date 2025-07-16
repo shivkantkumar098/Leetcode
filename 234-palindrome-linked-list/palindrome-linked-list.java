@@ -37,7 +37,7 @@ class Solution {
         while (second != null) {
             if (first.val != second.val) {
                 // Restore the list before returning
-                reverse(reversedSecondHalf, null);
+                // reverse(reversedSecondHalf, null);
                 return false;
             }
             first = first.next;
@@ -45,7 +45,7 @@ class Solution {
         }
 
         // Optional: Restore the list
-        reverse(reversedSecondHalf, null);
+        // reverse(reversedSecondHalf, null);
         return true;
     }
 }
