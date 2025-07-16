@@ -45,7 +45,7 @@ class Solution {
         }
 
         // Optional: Restore the list
-        // reverse(reversedSecondHalf, null);
+        reverse(reversedSecondHalf, null);
         return true;
     }
 }
