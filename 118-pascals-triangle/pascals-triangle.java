@@ -1,23 +1,19 @@
-import java.util.*;
-
 class Solution {
     public List<List<Integer>> generate(int numRows) {
-        // By Binomial Expansion
-        List<List<Integer>> triangle = new ArrayList<>();
-
-        for (int n = 0; n < numRows; n++) {
-            List<Integer> row = new ArrayList<>();
-            long val = 1; // C(n, 0) = 1
-
-            for (int k = 0; k <= n; k++) {
-                row.add((int) val);
-                // Use iterative binomial coefficient formula
-                val = val * (n - k) / (k + 1);
+        List<List<Integer>>res=new ArrayList<>();
+        for(int i=0;i<numRows;i++){
+            List<Integer>row=new ArrayList<>();
+            for(int j=0;j<=i;j++){
+                if(j==0 || j==i){
+                    row.add(1);
+                }
+                else{
+                    int val=res.get(i-1).get(j-1)+res.get(i-1).get(j);
+                    row.add(val);
+                }
             }
-
-            triangle.add(row);
+            res.add(row);
         }
-
-        return triangle;
+        return res;
     }
 }
