@@ -1,11 +1,21 @@
+import java.util.HashMap;
+
 class Solution {
     public long countBadPairs(int[] nums) {
-        Map<Integer, Integer> bag = new HashMap<>();
-        long count = 0;
-        for (int i = 0; i < nums.length; i++) {
-            count += -1 + bag.merge(nums[i] - i, 1, Integer::sum);
+        int n = nums.length;
+        long totalPairs = (long)n * (n - 1) / 2;
+        long goodPairs = 0;
+        
+        HashMap<Integer, Integer> map = new HashMap<>();
+        
+        for (int i = 0; i < n; i++) {
+            int key = nums[i] - i;
+            if (map.containsKey(key)) {
+                goodPairs += map.get(key);  
+            }
+            map.put(key, map.getOrDefault(key, 0) + 1);
         }
-        int len = nums.length;
-        return 1L * len * (len - 1) / 2 - count;
+        
+        return totalPairs - goodPairs;
     }
 }
