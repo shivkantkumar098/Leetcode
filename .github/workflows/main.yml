@@ -1,0 +1,29 @@
+name: Install MySQL on Windows
+
+on:
+  workflow_dispatch: # allows manual trigger
+
+jobs:
+  install-mysql:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install MySQL via Chocolatey
+        shell: powershell
+        run: |
+          if (-not (Get-Command choco -ErrorAction SilentlyContinue)) {
+              Set-ExecutionPolicy Bypass -Scope Process -Force
+              [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
+              iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+          }
+          choco install mysql -y
+          Start-Service MySQL
+          & "C:\Program Files\MySQL\MySQL Server 8.0\bin\mysqladmin.exe" -u root password "root"
+
+      - name: Verify MySQL installation
+        shell: powershell
+        run: |
+          mysql --version
+          Write-Output "MySQL Installed Successfully!"
